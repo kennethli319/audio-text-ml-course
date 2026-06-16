@@ -21,6 +21,9 @@ Open `index.html` in a browser to read the website locally.
   privacy-safe telemetry, rollback, cost controls, and production incidents.
 - Evaluation and RAG: WER/CER/entity metrics, retrieval recall, grounded answer
   evaluation, LLM judges, human review, monitoring, and rollout gates.
+- Voice-agent benchmarks: task success, spoken RAG, multi-turn safety, speech
+  repair, launch gates, slice regressions, cost-quality tradeoffs, and rollback
+  decisions.
 - Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
 - Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
