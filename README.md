@@ -32,6 +32,9 @@ Open `index.html` in a browser to read the website locally.
   rollback recommendations, cost monitoring, and speech incident postmortems.
 - Inference platform readiness: real-time versus batch isolation, launch gates,
   queue SLOs, cost regressions, shared serving platforms, and incident drills.
+- Speech AI debugging casebook: hypothesis-driven incident response,
+  slice-aware rollback decisions, spoken RAG failures, safety regressions, and
+  privacy-safe incident packets.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 - Coding interviews: Blind 75 pattern practice, hidden-answer checkpoints,
