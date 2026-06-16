@@ -509,6 +509,173 @@ class MedianFinder:
     return result</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 14: Longest Increasing Subsequence</h3>
+        <p>
+          Given an integer array, return the length of the longest strictly
+          increasing subsequence.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: <code>tails[k]</code> is the smallest possible tail
+            value for an increasing subsequence of length <code>k + 1</code>.
+            Smaller tails preserve more future options. The list is not
+            necessarily the final subsequence.
+          </p>
+          <pre><code class="language-python">from bisect import bisect_left
+
+
+def length_of_lis(nums):
+    tails = []
+    for x in nums:
+        i = bisect_left(tails, x)
+        if i == len(tails):
+            tails.append(x)
+        else:
+            tails[i] = x
+    return len(tails)</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 15: Decode Ways</h3>
+        <p>
+          Given a digit string where A is 1 through Z is 26, return how many
+          ways the string can be decoded.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: after processing position <code>i</code>,
+            <code>prev1</code> is the number of decodes for the prefix ending
+            at <code>i</code>, and <code>prev2</code> is the count for the
+            prefix before it. Zeros only work as part of 10 or 20.
+          </p>
+          <pre><code class="language-python">def num_decodings(s):
+    if not s or s[0] == "0":
+        return 0
+
+    prev2, prev1 = 1, 1
+    for i in range(1, len(s)):
+        current = 0
+        if s[i] != "0":
+            current += prev1
+        two_digit = int(s[i - 1:i + 1])
+        if 10 &lt;= two_digit &lt;= 26:
+            current += prev2
+        prev2, prev1 = prev1, current
+    return prev1</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 16: Pacific Atlantic Water Flow</h3>
+        <p>
+          Given a height matrix, return cells where water can flow to both the
+          Pacific and Atlantic oceans.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: reverse traversal from an ocean marks every cell that
+            can reach that ocean by non-increasing forward flow. Moving
+            backward, you may only step to equal or higher neighbors.
+          </p>
+          <pre><code class="language-python">def pacific_atlantic(heights):
+    if not heights or not heights[0]:
+        return []
+
+    rows, cols = len(heights), len(heights[0])
+
+    def reach(starts):
+        seen = set(starts)
+        stack = list(starts)
+        while stack:
+            r, c = stack.pop()
+            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = r + dr, c + dc
+                if (
+                    0 &lt;= nr &lt; rows
+                    and 0 &lt;= nc &lt; cols
+                    and (nr, nc) not in seen
+                    and heights[nr][nc] &gt;= heights[r][c]
+                ):
+                    seen.add((nr, nc))
+                    stack.append((nr, nc))
+        return seen
+
+    pacific = [(0, c) for c in range(cols)] + [(r, 0) for r in range(rows)]
+    atlantic = [(rows - 1, c) for c in range(cols)] + [
+        (r, cols - 1) for r in range(rows)
+    ]
+    both = reach(pacific) &amp; reach(atlantic)
+    return [[r, c] for r, c in sorted(both)]</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 17: Binary Tree Maximum Path Sum</h3>
+        <p>
+          Given a binary tree, return the largest path sum. A path may start
+          and end at any nodes, but it cannot reuse a node.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: DFS returns the best one-branch gain that can continue
+            upward to the parent. The global answer may use both branches at
+            the current node, but that split path cannot be returned upward.
+          </p>
+          <pre><code class="language-python">def max_path_sum(root):
+    best = -10**18
+
+    def gain(node):
+        nonlocal best
+        if not node:
+            return 0
+        left = max(0, gain(node.left))
+        right = max(0, gain(node.right))
+        best = max(best, node.val + left + right)
+        return node.val + max(left, right)
+
+    gain(root)
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 18: Top K Frequent Elements</h3>
+        <p>
+          Given an integer array and integer <code>k</code>, return the
+          <code>k</code> most frequent elements.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: each bucket index represents an exact frequency. After
+            counting, scanning buckets from high to low yields elements in
+            descending frequency without sorting all unique values.
+          </p>
+          <pre><code class="language-python">from collections import Counter
+
+
+def top_k_frequent(nums, k):
+    counts = Counter(nums)
+    buckets = [[] for _ in range(len(nums) + 1)]
+    for value, freq in counts.items():
+        buckets[freq].append(value)
+
+    result = []
+    for freq in range(len(buckets) - 1, 0, -1):
+        for value in buckets[freq]:
+            result.append(value)
+            if len(result) == k:
+                return result
+    return result</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">

@@ -14,6 +14,7 @@
       <a href="#gates">CI/CD</a>
       <a href="#observability">Observability</a>
       <a href="#incidents">Incidents</a>
+      <a href="#interview">Interview</a>
       <a href="#cost">Cost</a>
     </nav>
     <p class="eyebrow">Production Lab</p>
@@ -174,6 +175,106 @@
             autoscaler target, replica count, retries, and failed requests.
             Check whether a fallback path silently moved from CPU to GPU or
             whether canary plus shadow traffic doubled inference.
+          </p>
+        </details>
+      </article>
+    </section>
+
+    <section id="interview" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Senior Interview Practice</p>
+        <h2>Prompts That Test Production Judgment</h2>
+        <p>
+          Use these prompts for mock interviews and written exams. A strong
+          answer should connect model behavior, product constraints, serving
+          math, observability, rollout, and rollback.
+        </p>
+      </div>
+
+      <article class="prompt">
+        <h3>Prompt 1: Design A Speech-To-Speech Assistant Rollout</h3>
+        <p>
+          You are launching a new cascaded ASR-LLM-TTS assistant for internal
+          users. It must feel conversational, protect private audio, and stay
+          under a fixed monthly GPU budget. Explain the rollout plan.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: senior structure</summary>
+          <p>
+            Start with SLOs: first partial transcript, first audio byte, turn
+            completion, task success, cost per minute, and privacy retention.
+            Launch behind flags with synthetic canaries, internal dogfood,
+            small cohort canary, and rollback to the prior assistant. Monitor
+            ASR WER slices, entity error, LLM groundedness, TTS first audio
+            byte, queue time, GPU memory, retry rate, cancellation, and user
+            correction rate. Keep raw audio out of logs by default, store
+            redacted traces, and route high-risk or high-cost sessions to a
+            fallback path.
+          </p>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Prompt 2: Debug A Drift Alert Without Raw Audio</h3>
+        <p>
+          After a microphone firmware update, ASR confidence drops and user
+          corrections increase. Policy prevents retaining raw customer audio.
+          What do you do in the first day?
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: privacy-safe debugging plan</summary>
+          <p>
+            Compare aggregate acoustic features before and after the firmware:
+            sample rate, clipping, silence ratio, loudness, SNR proxy, channel
+            count, duration, VAD segments, language probabilities, confidence,
+            and correction categories. Reproduce with public fixtures recorded
+            through the same device path, synthetic noisy clips, and opted-in
+            samples if policy allows. Mitigate with input normalization,
+            firmware-specific routing, VAD threshold changes, or rollback of
+            the firmware path. Update eval fixtures so the failure cannot
+            return unnoticed.
+          </p>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Prompt 3: Choose Between Smaller ASR And Larger ASR</h3>
+        <p>
+          A smaller ASR model is 45 percent cheaper and 30 percent faster but
+          has worse WER on noisy far-field audio and domain terms. How do you
+          decide whether to ship it?
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: decision framework</summary>
+          <p>
+            Do not decide from global WER alone. Compare slice metrics,
+            entity error, downstream task success, latency, cost, user segment,
+            and recovery behavior. A likely senior answer is a cascade: route
+            clean, short, high-confidence utterances to the smaller model and
+            route noisy, long, low-confidence, or domain-heavy utterances to
+            the larger model. Canary the router, cap blast radius, monitor
+            routing mistakes, and keep a one-switch rollback to the baseline.
+          </p>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Prompt 4: Explain CI/CD For A Model And Feature Change</h3>
+        <p>
+          A pull request changes log-mel feature extraction and updates ASR
+          weights. What must pass before production?
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: gate list</summary>
+          <p>
+            Require unit tests for feature shape, sample-rate handling,
+            normalization, streaming chunk boundaries, and model wrapper
+            schema. Require deterministic eval on public or approved fixtures,
+            slice regression checks, latency and memory benchmarks, artifact
+            versioning, dependency lockfile, model card, rollback plan, and
+            privacy review. The deployment should stage through offline eval,
+            shadow traffic, canary, and gradual rollout with automatic halt
+            criteria.
           </p>
         </details>
       </article>
