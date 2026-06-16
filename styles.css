@@ -52,6 +52,17 @@ nav a {
   justify-content: flex-start;
 }
 
+.lesson-hero {
+  min-height: 54vh;
+  padding: 2rem clamp(1rem, 4vw, 4rem);
+  color: #fff;
+  background:
+    linear-gradient(rgba(12, 36, 48, 0.78), rgba(12, 36, 48, 0.76)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
 .hero h1 {
   max-width: 980px;
   margin: 0;
@@ -163,6 +174,51 @@ h3 {
 .lab {
   color: var(--amber);
   font-weight: 650;
+}
+
+.lesson-link {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-weight: 700;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #111827;
+  color: #e5e7eb;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+}
+
+.qa {
+  margin: 1rem 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.85rem 1rem;
+}
+
+.qa summary {
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.qa p {
+  margin-bottom: 0;
+}
+
+.checklist {
+  max-width: 900px;
+  padding-left: 1.2rem;
+}
+
+.checklist li {
+  margin: 0.55rem 0;
 }
 
 .resources {
