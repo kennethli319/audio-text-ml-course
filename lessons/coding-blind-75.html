@@ -1211,6 +1211,293 @@ def top_k_frequent(nums, k):
         return node</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 37: Reverse Linked List</h3>
+        <p>
+          Given the head of a singly linked list, reverse the list and return
+          the new head.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: <code>prev</code> is the reversed prefix and
+            <code>curr</code> is the first node not yet reversed. Save
+            <code>curr.next</code> before rewiring. Test empty, one node, two
+            nodes, and a longer list.
+          </p>
+          <pre><code class="language-python">def reverse_list(head):
+    prev = None
+    curr = head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 38: Remove Nth Node From End</h3>
+        <p>
+          Remove the nth node from the end of a singly linked list and return
+          the head.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: after advancing <code>fast</code> by <code>n</code>
+            nodes, the gap between <code>fast</code> and <code>slow</code> is
+            exactly <code>n</code>. A dummy node makes deleting the head the
+            same as deleting any other node. Test removing the head, tail,
+            only node, and a middle node.
+          </p>
+          <pre><code class="language-python">def remove_nth_from_end(head, n):
+    dummy = ListNode(0, head)
+    fast = slow = dummy
+
+    for _ in range(n):
+        fast = fast.next
+
+    while fast.next:
+        fast = fast.next
+        slow = slow.next
+
+    slow.next = slow.next.next
+    return dummy.next</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 39: Set Matrix Zeroes</h3>
+        <p>
+          If any cell in a matrix is zero, set its entire row and column to
+          zero in place.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: the first row and first column become marker storage for
+            whether each row or column should be zeroed. Separate flags protect
+            their original zero state. Test a zero in the first row, first
+            column, no zeros, and a one-by-one matrix.
+          </p>
+          <pre><code class="language-python">def set_zeroes(matrix):
+    rows, cols = len(matrix), len(matrix[0])
+    first_row_zero = any(matrix[0][c] == 0 for c in range(cols))
+    first_col_zero = any(matrix[r][0] == 0 for r in range(rows))
+
+    for r in range(1, rows):
+        for c in range(1, cols):
+            if matrix[r][c] == 0:
+                matrix[r][0] = 0
+                matrix[0][c] = 0
+
+    for r in range(1, rows):
+        for c in range(1, cols):
+            if matrix[r][0] == 0 or matrix[0][c] == 0:
+                matrix[r][c] = 0
+
+    if first_row_zero:
+        for c in range(cols):
+            matrix[0][c] = 0
+    if first_col_zero:
+        for r in range(rows):
+            matrix[r][0] = 0</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 40: Spiral Matrix</h3>
+        <p>
+          Return all matrix values in clockwise spiral order.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: <code>top</code>, <code>bottom</code>,
+            <code>left</code>, and <code>right</code> bound the unvisited
+            rectangle. After each side is emitted, shrink that side and guard
+            against single-row or single-column double visits. Test one row,
+            one column, square, and rectangular matrices.
+          </p>
+          <pre><code class="language-python">def spiral_order(matrix):
+    if not matrix or not matrix[0]:
+        return []
+
+    top, bottom = 0, len(matrix) - 1
+    left, right = 0, len(matrix[0]) - 1
+    out = []
+
+    while top &lt;= bottom and left &lt;= right:
+        for c in range(left, right + 1):
+            out.append(matrix[top][c])
+        top += 1
+
+        for r in range(top, bottom + 1):
+            out.append(matrix[r][right])
+        right -= 1
+
+        if top &lt;= bottom:
+            for c in range(right, left - 1, -1):
+                out.append(matrix[bottom][c])
+            bottom -= 1
+
+        if left &lt;= right:
+            for r in range(bottom, top - 1, -1):
+                out.append(matrix[r][left])
+            left += 1
+
+    return out</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 41: Longest Palindromic Substring</h3>
+        <p>
+          Return the longest contiguous substring that is a palindrome.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: every palindrome has either one center or a gap between
+            two centers. Expanding from all centers finds every candidate.
+            Test odd length, even length, all same characters, and no repeated
+            adjacent characters.
+          </p>
+          <pre><code class="language-python">def longest_palindrome(s):
+    best = (0, 0)
+
+    def expand(left, right):
+        while left &gt;= 0 and right &lt; len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
+
+    for i in range(len(s)):
+        for left, right in (expand(i, i), expand(i, i + 1)):
+            if right - left &gt; best[1] - best[0]:
+                best = (left, right)
+    return s[best[0]:best[1] + 1]</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 42: Encode And Decode Strings</h3>
+        <p>
+          Design methods to encode a list of strings into one string and
+          decode it back exactly.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: every encoded item carries its exact length before the
+            payload, so the decoder never guesses based on delimiter content.
+            Test empty strings, strings containing the delimiter, repeated
+            strings, and an empty list.
+          </p>
+          <pre><code class="language-python">def encode(strings):
+    return "".join(f"{len(s)}#{s}" for s in strings)
+
+
+def decode(blob):
+    out = []
+    i = 0
+    while i &lt; len(blob):
+        j = blob.index("#", i)
+        size = int(blob[i:j])
+        start = j + 1
+        out.append(blob[start:start + size])
+        i = start + size
+    return out</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 43: Serialize And Deserialize Binary Tree</h3>
+        <p>
+          Convert a binary tree to a string and reconstruct the exact same
+          tree shape and values.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: preorder traversal with null markers fully determines
+            tree shape. During deserialization, consuming tokens in the same
+            preorder order rebuilds each subtree exactly once. Test empty
+            tree, single node, skewed tree, duplicate values, and negative
+            values.
+          </p>
+          <pre><code class="language-python">def serialize(root):
+    vals = []
+
+    def walk(node):
+        if node is None:
+            vals.append("#")
+            return
+        vals.append(str(node.val))
+        walk(node.left)
+        walk(node.right)
+
+    walk(root)
+    return ",".join(vals)
+
+
+def deserialize(data):
+    vals = iter(data.split(","))
+
+    def build():
+        val = next(vals)
+        if val == "#":
+            return None
+        node = TreeNode(int(val))
+        node.left = build()
+        node.right = build()
+        return node
+
+    return build()</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 44: Add And Search Word</h3>
+        <p>
+          Implement a trie-backed word dictionary where search supports
+          <code>.</code> as a wildcard for any single character.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: a normal character follows one trie edge, while a dot
+            branches over all child edges at that depth. The end marker still
+            decides whether the whole pattern is a word. Test dot at the
+            beginning, middle, and end; exact search; prefix-only search; and
+            no-match patterns.
+          </p>
+          <pre><code class="language-python">class WordDictionary:
+    def __init__(self):
+        self.root = {}
+
+    def add_word(self, word):
+        node = self.root
+        for ch in word:
+            node = node.setdefault(ch, {})
+        node["#"] = True
+
+    def search(self, pattern):
+        def dfs(i, node):
+            if i == len(pattern):
+                return "#" in node
+            ch = pattern[i]
+            if ch == ".":
+                return any(key != "#" and dfs(i + 1, child)
+                           for key, child in node.items())
+            return ch in node and dfs(i + 1, node[ch])
+
+        return dfs(0, self.root)</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">
