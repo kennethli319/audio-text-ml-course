@@ -344,6 +344,85 @@ def can_finish(num_courses, prerequisites):
     return merged</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 9: Minimum Window Substring</h3>
+        <p>
+          Given strings <code>s</code> and <code>t</code>, return the smallest
+          substring of <code>s</code> containing every character of
+          <code>t</code> with multiplicity.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: when <code>formed == required</code>, the current window
+            satisfies all required counts. Shrink from the left until removing a
+            character would break the invariant.
+          </p>
+          <pre><code class="language-python">from collections import Counter, defaultdict
+
+
+def min_window(s, t):
+    need = Counter(t)
+    window = defaultdict(int)
+    required = len(need)
+    formed = 0
+    best = (float("inf"), 0, 0)
+    left = 0
+
+    for right, ch in enumerate(s):
+        window[ch] += 1
+        if ch in need and window[ch] == need[ch]:
+            formed += 1
+
+        while formed == required:
+            if right - left + 1 &lt; best[0]:
+                best = (right - left + 1, left, right)
+            drop = s[left]
+            window[drop] -= 1
+            if drop in need and window[drop] &lt; need[drop]:
+                formed -= 1
+            left += 1
+
+    if best[0] == float("inf"):
+        return ""
+    return s[best[1]:best[2] + 1]</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 10: Find Median From Data Stream</h3>
+        <p>
+          Design a data structure that accepts integers one by one and returns
+          the current median.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: the low heap stores the smaller half as negatives, the
+            high heap stores the larger half, and their sizes differ by at most
+            one. The median is one heap top or the average of both tops.
+          </p>
+          <pre><code class="language-python">import heapq
+
+
+class MedianFinder:
+    def __init__(self):
+        self.low = []
+        self.high = []
+
+    def add_num(self, num):
+        heapq.heappush(self.low, -num)
+        heapq.heappush(self.high, -heapq.heappop(self.low))
+        if len(self.high) &gt; len(self.low):
+            heapq.heappush(self.low, -heapq.heappop(self.high))
+
+    def find_median(self):
+        if len(self.low) &gt; len(self.high):
+            return float(-self.low[0])
+        return (-self.low[0] + self.high[0]) / 2</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">
