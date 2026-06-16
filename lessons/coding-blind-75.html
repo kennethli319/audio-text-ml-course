@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coding Interview Track - Blind 75</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="lesson-hero">
+    <nav>
+      <a href="../index.html">Course Home</a>
+      <a href="#method">Method</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#blind75">Blind 75</a>
+      <a href="#mistakes">Mistakes</a>
+    </nav>
+    <p class="eyebrow">Coding Track</p>
+    <h1>Blind 75 Coding Interview Chapter</h1>
+    <p class="lede">
+      Senior ML engineers still need strong general coding. This chapter covers
+      the Blind 75 problem set by pattern, with strategy, common mistakes, and
+      hidden answer notes for each problem.
+    </p>
+  </header>
+
+  <main>
+    <section id="method" class="band">
+      <div class="section-head">
+        <p class="eyebrow">How To Practice</p>
+        <h2>Learn Patterns, Then Problems</h2>
+      </div>
+      <ol class="steps">
+        <li><strong>Classify:</strong> name the pattern before writing code.</li>
+        <li><strong>State invariants:</strong> explain what stays true after each loop or recursion step.</li>
+        <li><strong>Code small:</strong> implement the core idea before optimizing.</li>
+        <li><strong>Test edges:</strong> empty input, one element, duplicates, negative values, cycles, disconnected graphs.</li>
+        <li><strong>Explain cost:</strong> give time and memory complexity without hand-waving.</li>
+      </ol>
+      <details class="qa">
+        <summary>Question: Why include Blind 75 in an audio ML course?</summary>
+        <p>
+          Senior ML roles often include practical coding rounds. Audio and model
+          serving work needs clean data structures, graph traversal, dynamic
+          programming, streaming windows, caches, and debugging discipline. This
+          track builds that foundation.
+        </p>
+      </details>
+    </section>
+
+    <section id="patterns" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Pattern Map</p>
+        <h2>The Core Moves</h2>
+      </div>
+      <div class="grid three">
+        <article class="card"><h3>Hash Map</h3><p>Use when you need fast lookup, counts, complements, grouping, or last-seen positions.</p></article>
+        <article class="card"><h3>Two Pointers</h3><p>Use on sorted arrays, palindromes, partitioning, or shrinking windows from both ends.</p></article>
+        <article class="card"><h3>Sliding Window</h3><p>Use for contiguous subarrays or substrings with a constraint that can be maintained incrementally.</p></article>
+        <article class="card"><h3>DFS/BFS</h3><p>Use for trees, graphs, islands, reachability, and shortest paths in unweighted graphs.</p></article>
+        <article class="card"><h3>Dynamic Programming</h3><p>Use when subproblems repeat and the answer can be built from smaller states.</p></article>
+        <article class="card"><h3>Heap</h3><p>Use for top-k, streaming medians, k-way merge, and priority scheduling.</p></article>
+      </div>
+    </section>
+
+    <section id="blind75" class="band">
+      <div class="section-head">
+        <p class="eyebrow">All Questions</p>
+        <h2>Blind 75 Problem Bank</h2>
+        <p>
+          Open each item only after solving or at least writing a plan. The
+          hidden answer gives the core strategy and the mistake to avoid, not a
+          memorized full solution.
+        </p>
+      </div>
+      <div id="problem-list" class="problem-list"></div>
+    </section>
+
+    <section id="mistakes" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Common Failure Modes</p>
+        <h2>What Breaks Interview Solutions</h2>
+      </div>
+      <ul class="checklist">
+        <li>Solving before restating constraints and edge cases.</li>
+        <li>Using recursion without a base case and visited-state story.</li>
+        <li>Forgetting duplicate handling in two-pointer and backtracking problems.</li>
+        <li>Returning the right value for the happy path but not for empty or one-element input.</li>
+        <li>Misreporting complexity because slicing, sorting, heap operations, or recursion stack are ignored.</li>
+        <li>Trying to memorize code instead of learning the invariant.</li>
+      </ul>
+    </section>
+
+    <section class="band">
+      <div class="section-head">
+        <p class="eyebrow">Sources</p>
+        <h2>References For The Problem Set</h2>
+      </div>
+      <ul class="resources">
+        <li><a href="https://neetcode.io/practice/practice/blind75">NeetCode Blind 75</a> - current interactive Blind 75 practice list with topic groupings.</li>
+        <li><a href="https://leetcode.com/problem-list/oizxjoit/">LeetCode Blind 75 problem list</a> - LeetCode-hosted problem list.</li>
+        <li><a href="https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/">LeetCode Discuss Blind 75 list</a> - commonly referenced public list.</li>
+        <li><a href="https://dev.to/educative/leetcode-blind-75-1e00">Educative Blind 75 patterns overview</a> - pattern categories and practice framing.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="../index.html">Back to course home</a></p>
+  </footer>
+
+  <script>
+    const problems = [
+      ["Arrays & Hashing", "Two Sum", "Hash map complement", "Scan once. For each value x, ask whether target - x was seen. Store value to index after the check.", "Returning the same index twice or using a nested loop when O(n) is expected."],
+      ["Arrays & Hashing", "Best Time to Buy and Sell Stock", "One-pass min prefix", "Track the lowest price so far and the best profit if selling today. This is a streaming invariant.", "Resetting the buy price after the sell day incorrectly or allowing negative profit when the answer should be zero."],
+      ["Arrays & Hashing", "Contains Duplicate", "Set membership", "Insert each value into a set; if it already exists, return true.", "Sorting when order must be preserved elsewhere, or ignoring memory tradeoff."],
+      ["Arrays & Hashing", "Product of Array Except Self", "Prefix and suffix products", "Build left products, then multiply by a running right product in reverse. Avoid division.", "Breaking on zeros or using division despite the constraint."],
+      ["Arrays & Hashing", "Maximum Subarray", "Kadane DP", "At each index, decide whether to extend the previous sum or start fresh. Track global best.", "Initializing best to zero, which fails when every number is negative."],
+      ["Arrays & Hashing", "Maximum Product Subarray", "Track max and min products", "Negative values can flip min to max. Keep both the largest and smallest product ending here.", "Only tracking max product and losing the effect of two negatives."],
+      ["Arrays & Hashing", "Find Minimum in Rotated Sorted Array", "Modified binary search", "Compare middle to right boundary. If mid is greater than right, minimum is to the right; otherwise it is at mid or left.", "Using linear search or off-by-one loops that never terminate."],
+      ["Arrays & Hashing", "Search in Rotated Sorted Array", "Sorted half binary search", "At each step identify which half is sorted, then decide whether target lies inside that half.", "Checking both halves recursively and losing O(log n)."],
+      ["Arrays & Hashing", "3Sum", "Sort plus two pointers", "Sort, fix one value, then use left/right pointers for the remaining two. Skip duplicates after using values.", "Skipping duplicates before moving pointers correctly, causing missed triples."],
+      ["Arrays & Hashing", "Container With Most Water", "Two pointers by limiting height", "Area is limited by the shorter wall. Move the shorter side inward because the longer side cannot improve while width shrinks.", "Moving the taller pointer or trying every pair."],
+
+      ["Binary", "Sum of Two Integers", "Bit operations", "Use XOR for sum without carry and AND-shift for carry. Repeat until carry is zero, respecting fixed-width integer behavior.", "Forgetting language-specific signed integer behavior."],
+      ["Binary", "Number of 1 Bits", "Bit counting", "Repeatedly clear the lowest set bit with n &= n - 1, counting iterations.", "Looping over decimal digits instead of bits."],
+      ["Binary", "Counting Bits", "DP by half or lowest bit", "Use dp[i] = dp[i >> 1] + (i & 1), or dp[i] = dp[i & (i - 1)] + 1.", "Recomputing each number from scratch when O(n) is expected."],
+      ["Binary", "Missing Number", "XOR or sum formula", "XOR all indices and values, or compare expected n(n+1)/2 with actual sum.", "Overflow in languages with fixed integer widths when using sum."],
+      ["Binary", "Reverse Bits", "Shift and mask", "Iterate 32 times, append the lowest bit of input to the result, then shift input.", "Stopping early and losing leading zeros."],
+
+      ["Dynamic Programming", "Climbing Stairs", "Fibonacci DP", "Ways to step i equals ways to i-1 plus ways to i-2. Keep two variables.", "Using exponential recursion without memoization."],
+      ["Dynamic Programming", "Coin Change", "Min-count DP", "dp[amount] is the fewest coins needed. Initialize infinity, dp[0]=0, relax by each coin.", "Using greedy, which fails for many coin systems."],
+      ["Dynamic Programming", "Longest Increasing Subsequence", "DP or patience sorting", "O(n^2) DP is clear; O(n log n) keeps tails where tails[k] is the smallest ending value for length k+1.", "Thinking tails is the actual subsequence rather than a compact state."],
+      ["Dynamic Programming", "Longest Common Subsequence", "2D DP", "dp[i][j] compares prefixes. If chars match, use diagonal + 1; otherwise max of left/up.", "Confusing subsequence with substring."],
+      ["Dynamic Programming", "Word Break", "Prefix DP", "dp[i] means s[:i] can be segmented. Try dictionary words or previous cut positions.", "Trying all sentence splits without memoization."],
+      ["Dynamic Programming", "Combination Sum IV", "Order-sensitive DP", "dp[target] sums dp[target-num] for every number. Because order matters, target is the outer loop.", "Using combination-style loops and accidentally ignoring order."],
+      ["Dynamic Programming", "House Robber", "Take or skip DP", "At each house choose max(previous best, best two houses back + current).", "Forgetting that adjacent houses cannot both be selected."],
+      ["Dynamic Programming", "House Robber II", "Circular DP split", "A circle means first and last conflict. Solve two linear cases: exclude first or exclude last.", "Running House Robber directly on the circular array."],
+      ["Dynamic Programming", "Decode Ways", "String DP", "dp[i] depends on whether one-digit and two-digit decodes ending at i are valid.", "Mishandling zeros such as 06, 10, and 20."],
+      ["Dynamic Programming", "Unique Paths", "Grid DP", "Ways to each cell equal top plus left. Use a 1D row for memory efficiency.", "Overcomplicating with DFS on a large grid."],
+      ["Dynamic Programming", "Jump Game", "Greedy farthest reach", "Track the farthest reachable index while scanning. If current index exceeds it, fail.", "Using DP when the greedy invariant is simpler."],
+
+      ["Graph", "Clone Graph", "DFS/BFS with map", "Map original nodes to cloned nodes. Traverse neighbors and create clones lazily.", "Creating duplicate clones for the same original node."],
+      ["Graph", "Course Schedule", "Cycle detection or topological sort", "Build prerequisite graph. Use indegree BFS or DFS colors to detect cycles.", "Treating prerequisites as undirected edges."],
+      ["Graph", "Pacific Atlantic Water Flow", "Reverse DFS/BFS from oceans", "Instead of starting from each cell, traverse backward from each ocean to cells that can flow into it.", "Doing a DFS from every cell and timing out."],
+      ["Graph", "Number of Islands", "Grid DFS/BFS", "Visit each land cell once, flood-fill connected land, count components.", "Forgetting to mark visited before recursing, causing repeat work."],
+      ["Graph", "Longest Consecutive Sequence", "Set starts only", "Put numbers in a set. Start a streak only when n-1 is absent.", "Sorting for O(n log n) or starting from every number."],
+      ["Graph", "Alien Dictionary", "Topological sort from first differing chars", "Compare adjacent words to derive ordering edges, then topologically sort letters.", "Missing the invalid prefix case, such as abc before ab."],
+      ["Graph", "Graph Valid Tree", "Connected and acyclic", "A tree with n nodes has n-1 edges and must be connected. Use DFS/union-find.", "Checking only edge count or only connectivity."],
+      ["Graph", "Number of Connected Components", "Union-find or DFS", "Union every edge, then count roots; or build adjacency and count DFS starts.", "Forgetting isolated nodes."],
+
+      ["Intervals", "Insert Interval", "Merge around new interval", "Append intervals before, merge overlapping middle with the new interval, append intervals after.", "Failing to include the new interval when it belongs at the start or end."],
+      ["Intervals", "Merge Intervals", "Sort by start", "Sort intervals, then merge if the next start is <= current end.", "Sorting by end and making merge logic harder."],
+      ["Intervals", "Non-overlapping Intervals", "Greedy by earliest end", "Sort by end time and keep intervals that finish earliest; count removals for overlaps.", "Greedy by start, which can keep long intervals that block many short ones."],
+      ["Intervals", "Meeting Rooms", "Sort starts", "Sort by start and check whether any meeting starts before the previous one ends.", "Using pairwise comparisons."],
+      ["Intervals", "Meeting Rooms II", "Min-heap or sweep line", "Sort meetings by start and track active end times in a min-heap; max heap size is rooms needed.", "Forgetting to pop all rooms that already ended."],
+
+      ["Linked List", "Reverse Linked List", "Pointer reversal", "Keep prev, curr, next. Reverse curr.next, then advance.", "Losing the rest of the list by overwriting next too early."],
+      ["Linked List", "Linked List Cycle", "Fast and slow pointers", "Move slow by one and fast by two. If they meet, there is a cycle.", "Using a set when O(1) memory is requested."],
+      ["Linked List", "Merge Two Sorted Lists", "Dummy head", "Use a dummy node and append the smaller current node from either list.", "Forgetting to attach the remaining tail."],
+      ["Linked List", "Merge K Sorted Lists", "Min-heap or divide and conquer", "Push one node from each list into a heap, or repeatedly merge pairs of lists.", "Flattening and sorting all values when node structure matters."],
+      ["Linked List", "Remove Nth Node From End", "Two pointers with dummy", "Advance fast n steps, then move fast and slow until fast reaches the end. Delete slow.next.", "Failing when the removed node is the head."],
+      ["Linked List", "Reorder List", "Split, reverse, merge", "Find middle, reverse second half, then weave first and second halves.", "Creating a cycle by not terminating the first half."],
+
+      ["Matrix", "Set Matrix Zeroes", "First row/column markers", "Use first row and column as zero markers, plus flags for whether they originally had zeros.", "Zeroing immediately and spreading zeros incorrectly."],
+      ["Matrix", "Spiral Matrix", "Boundary traversal", "Maintain top, bottom, left, right boundaries and shrink after each direction.", "Double-visiting when a single row or column remains."],
+      ["Matrix", "Rotate Image", "Transpose then reverse rows", "For clockwise rotation, transpose matrix in place, then reverse each row.", "Allocating another matrix when in-place is required."],
+      ["Matrix", "Word Search", "Backtracking DFS", "From each cell, DFS matching characters, marking visited during the current path only.", "Using a global visited set across different starts."],
+
+      ["String", "Longest Substring Without Repeating Characters", "Sliding window with last seen", "Move left past the previous occurrence of the current character and update best length.", "Moving left backward when a repeat is outside the current window."],
+      ["String", "Longest Repeating Character Replacement", "Sliding window with max frequency", "Keep a window where length - most frequent count <= k. Shrink when invalid.", "Recomputing too much or reducing max frequency incorrectly; stale max is acceptable."],
+      ["String", "Minimum Window Substring", "Need/have sliding window", "Expand right until requirements are met, then shrink left while preserving validity.", "Checking only unique chars and not required counts."],
+      ["String", "Valid Anagram", "Counts", "Compare character counts or sort both strings if complexity permits.", "Ignoring Unicode or character-set assumptions when asked."],
+      ["String", "Group Anagrams", "Canonical key", "Use sorted string or 26-count tuple as a hash key.", "Using a mutable list as a dictionary key."],
+      ["String", "Valid Parentheses", "Stack", "Push expected closers or openers; pop and match on close.", "Not checking leftover open brackets."],
+      ["String", "Valid Palindrome", "Two pointers with filtering", "Move inward, skipping non-alphanumeric characters and comparing lowercase chars.", "Building a cleaned string when O(1) memory is preferred."],
+      ["String", "Longest Palindromic Substring", "Expand around centers", "Each palindrome has a center. Expand from every single and between-character center.", "Only checking odd-length palindromes."],
+      ["String", "Palindromic Substrings", "Count center expansions", "For each possible center, expand while chars match and count every valid expansion.", "Counting only maximal palindromes."],
+      ["String", "Encode and Decode Strings", "Length-prefixed encoding", "Encode each string as length + delimiter + bytes/chars, then parse exactly that length.", "Using a delimiter alone, which fails when strings contain the delimiter."],
+
+      ["Tree", "Maximum Depth of Binary Tree", "Recursive or BFS depth", "Depth is 1 + max(left depth, right depth), with null depth zero.", "Off-by-one around empty tree."],
+      ["Tree", "Same Tree", "Recursive structural equality", "Two trees are same if both roots are null, or values match and left/right subtrees match.", "Comparing traversals only, which can be ambiguous without null markers."],
+      ["Tree", "Invert Binary Tree", "Postorder or preorder swap", "Swap left and right for every node recursively or iteratively.", "Only swapping the root."],
+      ["Tree", "Binary Tree Maximum Path Sum", "DFS gain", "Return max downward gain to parent; update global best with left + node + right.", "Returning a split path upward, which is invalid because parent can only continue one side."],
+      ["Tree", "Binary Tree Level Order Traversal", "BFS queue", "Process nodes level by level using queue size to delimit levels.", "Mixing levels because queue length changes during iteration."],
+      ["Tree", "Serialize and Deserialize Binary Tree", "Traversal with null markers", "Preorder or level-order encode values plus nulls so shape is recoverable.", "Omitting nulls, which loses structure."],
+      ["Tree", "Subtree of Another Tree", "Tree equality at candidate roots", "Traverse main tree. When values match, run same-tree comparison.", "Assuming matching root value is enough."],
+      ["Tree", "Construct Binary Tree from Preorder and Inorder Traversal", "Root plus inorder split", "Preorder gives root. Inorder splits left/right. Use index map and bounds for O(n).", "Slicing arrays repeatedly and turning O(n) into O(n^2)."],
+      ["Tree", "Validate Binary Search Tree", "Value bounds", "Every node must be within lower and upper bounds inherited from ancestors.", "Checking only immediate children."],
+      ["Tree", "Kth Smallest Element in a BST", "Inorder traversal", "BST inorder traversal is sorted. Stop after visiting k nodes.", "Traversing the whole tree when early stop is possible."],
+      ["Tree", "Lowest Common Ancestor of a BST", "Use BST ordering", "If both targets are smaller, go left; if larger, go right; otherwise current node is split/LCA.", "Using general-tree LCA and missing the BST shortcut."],
+      ["Tree", "Implement Trie", "Prefix tree nodes", "Each node stores children and an end-of-word marker. Insert/search by walking characters.", "Not distinguishing full word from prefix."],
+      ["Tree", "Add and Search Word", "Trie plus wildcard DFS", "Normal chars follow one child. Dot branches over all children recursively.", "Treating dot as a literal character."],
+      ["Tree", "Word Search II", "Trie-guided backtracking", "Build a trie of words, DFS the board, prune paths not in trie, and mark found words once.", "Running Word Search separately for every word."],
+
+      ["Heap", "Top K Frequent Elements", "Frequency map plus heap or buckets", "Count frequencies. Use bucket sort by frequency or a heap of size k.", "Sorting full items when linear bucket solution is expected."],
+      ["Heap", "Find Median from Data Stream", "Two heaps", "Max-heap for lower half, min-heap for upper half. Balance sizes and compute median from tops.", "Letting heaps become unbalanced or reversing heap roles."]
+    ];
+
+    const container = document.getElementById("problem-list");
+    const grouped = new Map();
+    for (const item of problems) {
+      const [category] = item;
+      if (!grouped.has(category)) grouped.set(category, []);
+      grouped.get(category).push(item);
+    }
+
+    let count = 1;
+    for (const [category, items] of grouped) {
+      const section = document.createElement("section");
+      section.className = "problem-group";
+      const heading = document.createElement("h3");
+      heading.textContent = category;
+      section.appendChild(heading);
+
+      for (const [, title, pattern, strategy, mistake] of items) {
+        const article = document.createElement("article");
+        article.className = "problem-card";
+
+        const h4 = document.createElement("h4");
+        h4.textContent = `${count}. ${title}`;
+        article.appendChild(h4);
+
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>Pattern:</strong> ${pattern}`;
+        article.appendChild(p);
+
+        const details = document.createElement("details");
+        details.className = "qa";
+        const summary = document.createElement("summary");
+        summary.textContent = "Hidden answer: strategy and common mistake";
+        const body = document.createElement("p");
+        body.innerHTML = `<strong>Strategy:</strong> ${strategy}<br><strong>Common mistake:</strong> ${mistake}`;
+        details.appendChild(summary);
+        details.appendChild(body);
+        article.appendChild(details);
+
+        section.appendChild(article);
+        count += 1;
+      }
+      container.appendChild(section);
+    }
+  </script>
+</body>
+</html>

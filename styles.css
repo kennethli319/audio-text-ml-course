@@ -142,6 +142,29 @@ h3 {
   background: #fff;
 }
 
+.problem-list,
+.problem-group {
+  display: grid;
+  gap: 1rem;
+}
+
+.problem-group {
+  margin: 2rem 0;
+}
+
+.problem-card {
+  max-width: 980px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.problem-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
 .steps {
   max-width: 880px;
   padding-left: 1.4rem;
