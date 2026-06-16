@@ -29,6 +29,9 @@ Open `index.html` in a browser to read the website locally.
   queue SLOs, cost regressions, shared serving platforms, and incident drills.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
+- Coding interviews: Blind 75 pattern practice, hidden-answer checkpoints,
+  graph/tree/DP invariants, common mistakes, edge cases, and worked Python
+  solutions.
 
 ## Suggested Use
 
