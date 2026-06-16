@@ -24,6 +24,8 @@ Open `index.html` in a browser to read the website locally.
 - Voice-agent benchmarks: task success, spoken RAG, multi-turn safety, speech
   repair, launch gates, slice regressions, cost-quality tradeoffs, and rollback
   decisions.
+- Senior interview sprint: timed speech AI system design, R&D tradeoff,
+  production debugging, MLOps, serving platform, and coding follow-up prompts.
 - Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
 - Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
