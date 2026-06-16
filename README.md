@@ -45,6 +45,9 @@ Open `index.html` in a browser to read the website locally.
   successful voice turn, graceful degradation, rollback selection, and
   privacy-safe debugging for ASR, TTS, LLM, retrieval, and speech-to-speech
   serving.
+- Load testing and chaos readiness: end-to-end speech load tests, dependency
+  failure drills, retry-storm detection, capacity gates, graceful degradation,
+  rollback triggers, and cost-aware launch decisions.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 - Coding interviews: Blind 75 pattern practice, hidden-answer checkpoints,
