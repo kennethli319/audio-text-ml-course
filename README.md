@@ -49,8 +49,8 @@ Open `index.html` in a browser to read the website locally.
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 - Coding interviews: Blind 75 pattern practice, hidden-answer checkpoints,
   arrays, intervals, heaps, matrices, linked lists, graph/tree/DP invariants,
-  strings, palindromes, tries, backtracking, common mistakes, edge cases, and
-  worked Python solutions.
+  strings, palindromes, tries, backtracking, bit manipulation, math, common
+  mistakes, edge cases, and worked Python solutions.
 
 ## Suggested Use
 
