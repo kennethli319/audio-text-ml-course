@@ -23,6 +23,8 @@ Open `index.html` in a browser to read the website locally.
   evaluation, LLM judges, human review, monitoring, and rollout gates.
 - Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
+- Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
+  rollback recommendations, cost monitoring, and speech incident postmortems.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 
