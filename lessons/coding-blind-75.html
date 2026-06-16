@@ -897,6 +897,188 @@ def valid_tree(n, edges):
     return len(seen) == n</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 27: Contains Duplicate</h3>
+        <p>
+          Given an integer array, return whether any value appears at least
+          twice.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: before reading <code>nums[i]</code>, the set contains
+            exactly the distinct values from earlier indices. If the current
+            value is already present, the duplicate pair uses two different
+            indices. Test <code>[1,2,3,1]</code>, <code>[1,2,3,4]</code>,
+            <code>[]</code>, and repeated negative values.
+          </p>
+          <pre><code class="language-python">def contains_duplicate(nums):
+    seen = set()
+    for x in nums:
+        if x in seen:
+            return True
+        seen.add(x)
+    return False</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 28: Maximum Subarray</h3>
+        <p>
+          Given an integer array, return the largest possible sum of a
+          contiguous non-empty subarray.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: <code>ending_here</code> is the best subarray sum that
+            must end at the current index. The global best is the best value
+            seen across all endings. Test all-negative arrays, one element,
+            and arrays where the best subarray starts after a large loss.
+          </p>
+          <pre><code class="language-python">def max_subarray(nums):
+    if not nums:
+        raise ValueError("nums must be non-empty")
+
+    ending_here = nums[0]
+    best = nums[0]
+    for x in nums[1:]:
+        ending_here = max(x, ending_here + x)
+        best = max(best, ending_here)
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 29: Maximum Product Subarray</h3>
+        <p>
+          Given an integer array, return the largest possible product of a
+          contiguous non-empty subarray.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: <code>hi</code> and <code>lo</code> are the largest and
+            smallest products ending at the current index. The smallest value
+            matters because a negative number can turn it into the largest.
+            Test zeros, all negatives, one element, and two separated positive
+            regions split by zero.
+          </p>
+          <pre><code class="language-python">def max_product(nums):
+    if not nums:
+        raise ValueError("nums must be non-empty")
+
+    hi = lo = best = nums[0]
+    for x in nums[1:]:
+        if x &lt; 0:
+            hi, lo = lo, hi
+        hi = max(x, hi * x)
+        lo = min(x, lo * x)
+        best = max(best, hi)
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 30: Find Minimum In Rotated Sorted Array</h3>
+        <p>
+          Given a rotated sorted array with unique values, return the minimum
+          value in O(log n) time.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: the minimum is always inside the closed interval
+            <code>left..right</code>. If <code>nums[mid]</code> is greater
+            than the right boundary, the minimum must be to the right;
+            otherwise it is at <code>mid</code> or to the left. Test no
+            rotation, rotation by one, two elements, and a single element.
+          </p>
+          <pre><code class="language-python">def find_min_rotated(nums):
+    if not nums:
+        raise ValueError("nums must be non-empty")
+
+    left, right = 0, len(nums) - 1
+    while left &lt; right:
+        mid = (left + right) // 2
+        if nums[mid] &gt; nums[right]:
+            left = mid + 1
+        else:
+            right = mid
+    return nums[left]</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 31: 3Sum</h3>
+        <p>
+          Given an integer array, return all unique triplets whose values sum
+          to zero.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: after sorting and fixing index <code>i</code>, the
+            two-pointer scan explores all pairs to the right of <code>i</code>
+            exactly once. Skip duplicate fixed values and duplicate pointer
+            values only after recording a valid triplet. Test all zeros,
+            duplicates around a valid answer, no answer, and arrays shorter
+            than three.
+          </p>
+          <pre><code class="language-python">def three_sum(nums):
+    nums.sort()
+    out = []
+    for i in range(len(nums) - 2):
+        if i &gt; 0 and nums[i] == nums[i - 1]:
+            continue
+        left, right = i + 1, len(nums) - 1
+        while left &lt; right:
+            total = nums[i] + nums[left] + nums[right]
+            if total == 0:
+                out.append([nums[i], nums[left], nums[right]])
+                left += 1
+                right -= 1
+                while left &lt; right and nums[left] == nums[left - 1]:
+                    left += 1
+                while left &lt; right and nums[right] == nums[right + 1]:
+                    right -= 1
+            elif total &lt; 0:
+                left += 1
+            else:
+                right -= 1
+    return out</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 32: Container With Most Water</h3>
+        <p>
+          Given vertical line heights, return the maximum area of water that
+          can be contained by two lines.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant, tests, and Python solution</summary>
+          <p>
+            Invariant: the current area is limited by the shorter wall. Moving
+            the taller wall inward cannot improve the area for the shorter
+            wall because width only shrinks, so discard the shorter side.
+            Test monotonic heights, equal heights, two elements, and repeated
+            plateaus.
+          </p>
+          <pre><code class="language-python">def max_area(height):
+    left, right = 0, len(height) - 1
+    best = 0
+    while left &lt; right:
+        width = right - left
+        best = max(best, width * min(height[left], height[right]))
+        if height[left] &lt;= height[right]:
+            left += 1
+        else:
+            right -= 1
+    return best</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">
