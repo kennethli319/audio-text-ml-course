@@ -1,6 +1,6 @@
 # Audio-Text Multimodal ML Course
 
-A private, self-paced study guide for learning machine learning from the
+A self-paced study guide for learning machine learning from the
 fundamentals through audio/text multimodality, ASR, TTS, speech-to-speech
 systems, efficient transformers, and efficient inference hosting.
 
@@ -57,7 +57,7 @@ Open `index.html` in a browser to read the website locally.
 
 ## Suggested Use
 
-Use this as a living repository:
+Use this as a living study guide:
 
 1. Read one module.
 2. Implement the lab.

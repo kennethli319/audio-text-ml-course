@@ -181,21 +181,23 @@ h3 {
 
 .timeline article {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr);
-  gap: 1rem;
-  padding: 1rem 0;
+  grid-template-columns: 5.5rem minmax(18rem, 1fr);
+  gap: 1.25rem;
+  padding: 1.2rem 0;
   border-top: 1px solid var(--line);
+  align-items: start;
 }
 
 .timeline span {
-  width: 3rem;
+  width: 4.25rem;
   height: 3rem;
-  border-radius: 50%;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   background: #e6f4f1;
   color: var(--teal);
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .timeline p {
@@ -273,5 +275,11 @@ footer {
 
   .timeline article {
     grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .timeline span {
+    width: fit-content;
+    min-width: 4.25rem;
   }
 }
