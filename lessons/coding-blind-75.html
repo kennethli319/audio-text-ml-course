@@ -780,6 +780,123 @@ def min_meeting_rooms(intervals):
     return True</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 23: Best Time To Buy And Sell Stock</h3>
+        <p>
+          Given daily prices, return the maximum profit from one buy followed
+          by one sell. Return zero if no profitable trade exists.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: before evaluating a sale on day <code>i</code>,
+            <code>min_price</code> is the cheapest valid buy price from an
+            earlier day. The best profit never needs a future buy date.
+          </p>
+          <pre><code class="language-python">def max_profit(prices):
+    min_price = float("inf")
+    best = 0
+    for price in prices:
+        best = max(best, price - min_price)
+        min_price = min(min_price, price)
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 24: Valid Palindrome</h3>
+        <p>
+          Return whether a string is a palindrome after ignoring
+          non-alphanumeric characters and case.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: every character outside the active
+            <code>left..right</code> window has already been matched or ignored.
+            Skip punctuation before comparing normalized characters.
+          </p>
+          <pre><code class="language-python">def is_palindrome(s):
+    left, right = 0, len(s) - 1
+    while left &lt; right:
+        while left &lt; right and not s[left].isalnum():
+            left += 1
+        while left &lt; right and not s[right].isalnum():
+            right -= 1
+        if s[left].lower() != s[right].lower():
+            return False
+        left += 1
+        right -= 1
+    return True</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 25: Non-Overlapping Intervals</h3>
+        <p>
+          Given intervals, return the minimum number that must be removed so
+          the remaining intervals do not overlap.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: after sorting by end time, keeping the interval that
+            ends earliest preserves the most room for future intervals. Every
+            overlapping interval skipped counts as one removal.
+          </p>
+          <pre><code class="language-python">def erase_overlap_intervals(intervals):
+    if not intervals:
+        return 0
+
+    intervals.sort(key=lambda item: item[1])
+    removals = 0
+    last_end = intervals[0][1]
+    for start, end in intervals[1:]:
+        if start &lt; last_end:
+            removals += 1
+        else:
+            last_end = end
+    return removals</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 26: Graph Valid Tree</h3>
+        <p>
+          Given <code>n</code> nodes and undirected edges, return whether the
+          graph is one connected tree.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: a valid tree has exactly <code>n - 1</code> edges and
+            every node is reachable from any starting node. The edge count
+            rules out cycles once connectivity is proven.
+          </p>
+          <pre><code class="language-python">from collections import defaultdict
+
+
+def valid_tree(n, edges):
+    if len(edges) != n - 1:
+        return False
+
+    graph = defaultdict(list)
+    for a, b in edges:
+        graph[a].append(b)
+        graph[b].append(a)
+
+    seen = {0}
+    stack = [0]
+    while stack:
+        node = stack.pop()
+        for nxt in graph[node]:
+            if nxt not in seen:
+                seen.add(nxt)
+                stack.append(nxt)
+    return len(seen) == n</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">

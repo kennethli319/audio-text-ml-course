@@ -21,6 +21,8 @@ Open `index.html` in a browser to read the website locally.
   privacy-safe telemetry, rollback, cost controls, and production incidents.
 - Evaluation and RAG: WER/CER/entity metrics, retrieval recall, grounded answer
   evaluation, LLM judges, human review, monitoring, and rollout gates.
+- Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
+  slice regressions, CI gates, drift monitoring, and privacy boundaries.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 
