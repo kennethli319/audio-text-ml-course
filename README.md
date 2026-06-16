@@ -26,6 +26,9 @@ Open `index.html` in a browser to read the website locally.
   decisions.
 - Senior interview sprint: timed speech AI system design, R&D tradeoff,
   production debugging, MLOps, serving platform, and coding follow-up prompts.
+- Evaluation and incident exams: senior prompts for ASR/TTS/RAG release gates,
+  slice-aware launch decisions, privacy-safe debugging, drift, cost spikes, and
+  rollback ranking utilities.
 - Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
 - Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
