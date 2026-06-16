@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio-Text Multimodal ML Course</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav>
+      <a href="#path">Path</a>
+      <a href="#modules">Modules</a>
+      <a href="#projects">Projects</a>
+      <a href="#resources">Sources</a>
+    </nav>
+    <p class="eyebrow">Private Study Guide</p>
+    <h1>Audio-Text Multimodal Machine Learning</h1>
+    <p class="lede">
+      A course from ML fundamentals to ASR, TTS, speech-to-speech systems,
+      efficient transformers, and practical inference hosting.
+    </p>
+  </header>
+
+  <main>
+    <section id="path" class="band">
+      <div class="section-head">
+        <p class="eyebrow">North Star</p>
+        <h2>Build Up To A Local Speech Assistant</h2>
+      </div>
+      <div class="grid three">
+        <article class="card">
+          <h3>Understand</h3>
+          <p>Learn the math, data representations, and model families behind modern audio/text ML.</p>
+        </article>
+        <article class="card">
+          <h3>Implement</h3>
+          <p>Write small experiments for features, training loops, ASR/TTS evaluation, and inference.</p>
+        </article>
+        <article class="card">
+          <h3>Optimize</h3>
+          <p>Measure latency, memory, context size, batching, quantization, and streaming behavior.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-head">
+        <p class="eyebrow">Study Rhythm</p>
+        <h2>Repeat This Loop</h2>
+      </div>
+      <ol class="steps">
+        <li><strong>Read:</strong> one paper, chapter, or implementation note.</li>
+        <li><strong>Rebuild:</strong> implement the smallest working version.</li>
+        <li><strong>Measure:</strong> record accuracy, latency, memory, and failure modes.</li>
+        <li><strong>Explain:</strong> write a one-page note in your own words.</li>
+        <li><strong>Connect:</strong> map the idea back to ASR, TTS, or speech-to-speech.</li>
+      </ol>
+    </section>
+
+    <section id="modules" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Curriculum</p>
+        <h2>Fourteen Modules</h2>
+      </div>
+      <div class="timeline">
+        <article>
+          <span>00</span>
+          <h3>Orientation And Tooling</h3>
+          <p>Set up Python, notebooks, PyTorch, audio tools, Git, experiment logs, and privacy boundaries.</p>
+          <p class="lab">Lab: load a WAV, plot waveform/spectrogram, save metadata only.</p>
+        </article>
+        <article>
+          <span>01</span>
+          <h3>Math For ML</h3>
+          <p>Linear algebra, probability, gradients, cross entropy, sequence likelihoods, and optimization intuition.</p>
+          <p class="lab">Lab: implement linear regression and softmax classification from scratch.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Neural Network Basics</h3>
+          <p>Tensors, autograd, MLPs, initialization, normalization, regularization, train/validation loops.</p>
+          <p class="lab">Lab: train a small classifier and write a failure analysis.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Audio Representations</h3>
+          <p>Sampling, quantization, STFT, mel filterbanks, MFCCs, log-mel features, framing, and augmentation.</p>
+          <p class="lab">Lab: compare waveform, spectrogram, and mel features for the same utterance.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Text And Sequence Modeling</h3>
+          <p>Tokenization, embeddings, n-grams, RNNs, seq2seq, attention, beam search, and decoding tradeoffs.</p>
+          <p class="lab">Lab: build a tiny character language model and inspect its decoding mistakes.</p>
+        </article>
+        <article>
+          <span>05</span>
+          <h3>Transformers</h3>
+          <p>Self-attention, causal masks, encoder/decoder stacks, positional encodings, RoPE, KV cache, and scaling limits.</p>
+          <p class="lab">Lab: implement single-head attention, then measure sequence length cost.</p>
+        </article>
+        <article>
+          <span>06</span>
+          <h3>ASR History</h3>
+          <p>Dynamic time warping, HMM/GMM systems, pronunciation lexicons, acoustic models, language models, and decoding graphs.</p>
+          <p class="lab">Lab: diagram a classic ASR pipeline and map modern replacements.</p>
+        </article>
+        <article>
+          <span>07</span>
+          <h3>Neural ASR</h3>
+          <p>CTC, Listen-Attend-Spell, RNN-T, Conformer, wav2vec 2.0, Whisper, WER/CER, streaming ASR, and VAD.</p>
+          <p class="lab">Lab: run two ASR models on the same clips and compare errors by category.</p>
+        </article>
+        <article>
+          <span>08</span>
+          <h3>TTS History</h3>
+          <p>Concatenative synthesis, statistical parametric speech, vocoders, Tacotron, WaveNet, FastSpeech, VITS, and voice cloning risks.</p>
+          <p class="lab">Lab: compare TTS latency and intelligibility across two local engines.</p>
+        </article>
+        <article>
+          <span>09</span>
+          <h3>Neural Audio Codecs</h3>
+          <p>Discrete audio tokens, residual vector quantization, codec language models, prosody, speaker information, and compression artifacts.</p>
+          <p class="lab">Lab: encode/decode audio and listen for bitrate-dependent artifacts.</p>
+        </article>
+        <article>
+          <span>10</span>
+          <h3>Audio-Text Multimodality</h3>
+          <p>Contrastive learning, cross-modal retrieval, audio captioning, speech translation, shared embedding spaces, and alignment losses.</p>
+          <p class="lab">Lab: build a tiny audio-text retrieval evaluation with hand-labeled examples.</p>
+        </article>
+        <article>
+          <span>11</span>
+          <h3>Speech-To-Speech Architectures</h3>
+          <p>Cascaded ASR-LLM-TTS, direct speech-to-speech, streaming turn-taking, barge-in, echo control, memory, and agent state.</p>
+          <p class="lab">Lab: design latency budgets for a local speech assistant turn.</p>
+        </article>
+        <article>
+          <span>12</span>
+          <h3>Efficient Transformers</h3>
+          <p>FlashAttention, grouped-query attention, speculative decoding, quantization, pruning, distillation, adapters, LoRA, and prompt compression.</p>
+          <p class="lab">Lab: benchmark one model under two quantization levels and two context lengths.</p>
+        </article>
+        <article>
+          <span>13</span>
+          <h3>Inference Hosting</h3>
+          <p>KV-cache memory, continuous batching, PagedAttention, llama.cpp, MLX, vLLM-style serving, telemetry, cold starts, and local privacy.</p>
+          <p class="lab">Lab: build a local inference readiness report with latency, memory, throughput, and quality notes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Projects</p>
+        <h2>Milestones To Build</h2>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <h3>Project A: Audio Feature Lab</h3>
+          <p>Feature extraction notebook with waveform, STFT, mel, augmentation, and metadata-only privacy rules.</p>
+        </article>
+        <article class="card">
+          <h3>Project B: ASR Error Analyzer</h3>
+          <p>Run ASR, compute WER/CER, classify substitutions/deletions/insertions, and produce a readable report.</p>
+        </article>
+        <article class="card">
+          <h3>Project C: TTS Latency Bench</h3>
+          <p>Compare local TTS paths by warmup time, generation time, perceived quality, and playback stability.</p>
+        </article>
+        <article class="card">
+          <h3>Project D: Speech Agent Loop</h3>
+          <p>Combine VAD, ASR, LLM, TTS, shared state, and transcript UI into a local privacy-preserving assistant.</p>
+        </article>
+        <article class="card">
+          <h3>Project E: Efficient Serving Report</h3>
+          <p>Benchmark prompt length, context memory, quantization, batching, and model choice for local hosting.</p>
+        </article>
+        <article class="card">
+          <h3>Project F: Speech-To-Speech Design Review</h3>
+          <p>Compare cascaded and direct architectures for latency, controllability, alignment, safety, and quality.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="resources" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Canonical Sources</p>
+        <h2>Starting Reading List</h2>
+      </div>
+      <ul class="resources">
+        <li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> - transformer foundation.</li>
+        <li><a href="https://arxiv.org/abs/1904.08779">SpecAugment</a> - simple augmentation for ASR features.</li>
+        <li><a href="https://arxiv.org/abs/2006.11477">wav2vec 2.0</a> - self-supervised speech representations.</li>
+        <li><a href="https://arxiv.org/abs/2005.08100">Conformer</a> - convolution-augmented Transformer for ASR.</li>
+        <li><a href="https://arxiv.org/abs/2212.04356">Whisper paper</a> - robust speech recognition via weak supervision.</li>
+        <li><a href="https://arxiv.org/abs/1905.09263">FastSpeech</a> - fast non-autoregressive TTS.</li>
+        <li><a href="https://arxiv.org/abs/2106.06103">VITS</a> - end-to-end TTS with variational and adversarial learning.</li>
+        <li><a href="https://arxiv.org/abs/2205.14135">FlashAttention</a> - IO-aware exact attention.</li>
+        <li><a href="https://arxiv.org/abs/2309.06180">PagedAttention / vLLM</a> - efficient KV-cache management for serving.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Keep private audio and transcripts out of Git. Record aggregate metrics and sanitized notes only.</p>
+  </footer>
+</body>
+</html>
