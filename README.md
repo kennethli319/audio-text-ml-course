@@ -17,6 +17,8 @@ Open `index.html` in a browser to read the website locally.
   non-autoregressive TTS, VITS, neural codecs.
 - Speech-to-speech: cascaded systems, shared state, streaming, barge-in,
   full-duplex constraints, direct speech models.
+- Evaluation and RAG: WER/CER/entity metrics, retrieval recall, grounded answer
+  evaluation, LLM judges, human review, monitoring, and rollout gates.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 

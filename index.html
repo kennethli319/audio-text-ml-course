@@ -63,7 +63,7 @@
     <section id="modules" class="band">
       <div class="section-head">
         <p class="eyebrow">Curriculum</p>
-        <h2>Fourteen Modules</h2>
+        <h2>Fifteen Modules</h2>
         <p>
           Lesson pages include code, checkpoints, and hidden answers. Start with
           the transformer lesson, then return here to connect it to ASR, TTS,
@@ -162,6 +162,13 @@
           <p class="lab">Lab: build a local inference readiness report with latency, memory, throughput, and quality notes.</p>
           <p><a class="lesson-link" href="lessons/inference-hosting.html">Open lesson: inference hosting and serving design</a></p>
         </article>
+        <article>
+          <span>14</span>
+          <h3>Evaluation, RAG, And Quality Systems</h3>
+          <p>Speech eval stacks, RAG for voice assistants, LLM judges, human review, slice metrics, and rollout gates.</p>
+          <p class="lab">Lab: build a privacy-safe speech RAG evaluation sheet with latency, retrieval, and spoken-answer scores.</p>
+          <p><a class="lesson-link" href="lessons/speech-evaluation-rag.html">Open lesson: speech evaluation, RAG, and quality systems</a></p>
+        </article>
       </div>
     </section>
 
@@ -191,6 +198,11 @@
           <h3>Inference Hosting</h3>
           <p>Practice GPU/CPU placement, batching, KV-cache memory, cost controls, rollback, and debugging for ASR, TTS, LLM, and speech-to-speech serving.</p>
           <p><a class="lesson-link" href="lessons/inference-hosting.html">Open lesson: inference hosting and serving design</a></p>
+        </article>
+        <article class="card">
+          <h3>Speech Evaluation And RAG</h3>
+          <p>Practice end-to-end quality systems for voice assistants: ASR slices, retrieval failures, LLM judges, human review, and rollout decisions.</p>
+          <p><a class="lesson-link" href="lessons/speech-evaluation-rag.html">Open lesson: speech evaluation, RAG, and quality systems</a></p>
         </article>
         <article class="card">
           <h3>What This Adds</h3>
@@ -252,6 +264,10 @@
           <h3>Project F: Speech-To-Speech Design Review</h3>
           <p>Compare cascaded and direct architectures for latency, controllability, alignment, safety, and quality.</p>
         </article>
+        <article class="card">
+          <h3>Project G: Speech RAG Eval Harness</h3>
+          <p>Build a small synthetic eval for spoken queries, noisy ASR hypotheses, document retrieval, grounded answers, and TTS latency.</p>
+        </article>
       </div>
     </section>
 
@@ -270,6 +286,7 @@
         <li><a href="https://arxiv.org/abs/2106.06103">VITS</a> - end-to-end TTS with variational and adversarial learning.</li>
         <li><a href="https://arxiv.org/abs/2205.14135">FlashAttention</a> - IO-aware exact attention.</li>
         <li><a href="https://arxiv.org/abs/2309.06180">PagedAttention / vLLM</a> - efficient KV-cache management for serving.</li>
+        <li><a href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation</a> - retrieval plus generation evaluation baseline.</li>
       </ul>
     </section>
   </main>
