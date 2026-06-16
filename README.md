@@ -31,6 +31,9 @@ Open `index.html` in a browser to read the website locally.
   rollback ranking utilities.
 - Data and evaluation operations: dataset contracts, labeling rubrics, lineage,
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
+- Data flywheels and active learning: consent-aware sampling, labeling audits,
+  data release diffs, privacy-safe review queues, slice quotas, and first-hour
+  data incident debugging.
 - Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
   rollback recommendations, cost monitoring, and speech incident postmortems.
 - Inference platform readiness: real-time versus batch isolation, launch gates,
