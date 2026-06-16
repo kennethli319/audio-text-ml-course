@@ -25,6 +25,8 @@ Open `index.html` in a browser to read the website locally.
   slice regressions, CI gates, drift monitoring, and privacy boundaries.
 - Observability and SLOs: burn-rate alerts, dashboard design, drift slices,
   rollback recommendations, cost monitoring, and speech incident postmortems.
+- Inference platform readiness: real-time versus batch isolation, launch gates,
+  queue SLOs, cost regressions, shared serving platforms, and incident drills.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 
