@@ -134,6 +134,14 @@ h3 {
   background: #fff;
 }
 
+.prompt {
+  max-width: 980px;
+  margin: 1.25rem 0;
+  border-left: 4px solid var(--teal);
+  padding: 1rem 1.25rem;
+  background: #fff;
+}
+
 .steps {
   max-width: 880px;
   padding-left: 1.4rem;
