@@ -676,6 +676,110 @@ def top_k_frequent(nums, k):
     return result</code></pre>
         </details>
       </article>
+
+      <article class="prompt">
+        <h3>Worked 19: Valid Anagram</h3>
+        <p>
+          Given two strings, return whether they contain the same characters
+          with the same counts.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: after counting both strings, every character must have
+            the same frequency. Length mismatch is an immediate failure because
+            equal counts cannot hold.
+          </p>
+          <pre><code class="language-python">from collections import Counter
+
+
+def is_anagram(s, t):
+    if len(s) != len(t):
+        return False
+    return Counter(s) == Counter(t)</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 20: Group Anagrams</h3>
+        <p>
+          Given a list of strings, group words that are anagrams of one
+          another.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: every word maps to a canonical key shared by exactly its
+            anagram group. For lowercase English letters, a 26-count tuple is a
+            stable hashable key.
+          </p>
+          <pre><code class="language-python">from collections import defaultdict
+
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+    for word in words:
+        counts = [0] * 26
+        for ch in word:
+            counts[ord(ch) - ord("a")] += 1
+        groups[tuple(counts)].append(word)
+    return list(groups.values())</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 21: Meeting Rooms II</h3>
+        <p>
+          Given meeting intervals, return the minimum number of rooms required
+          so no meetings overlap in the same room.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: the heap contains end times for meetings currently using
+            rooms. Before adding a meeting, free every room whose end time is
+            less than or equal to the new start.
+          </p>
+          <pre><code class="language-python">import heapq
+
+
+def min_meeting_rooms(intervals):
+    intervals.sort(key=lambda item: item[0])
+    active = []
+    best = 0
+    for start, end in intervals:
+        while active and active[0] &lt;= start:
+            heapq.heappop(active)
+        heapq.heappush(active, end)
+        best = max(best, len(active))
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 22: Jump Game</h3>
+        <p>
+          Given maximum jump lengths at each index, return whether the last
+          index is reachable.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: <code>farthest</code> is the greatest index reachable
+            from any index processed so far. If the current index is beyond it,
+            no later jump can repair the gap.
+          </p>
+          <pre><code class="language-python">def can_jump(nums):
+    farthest = 0
+    for i, jump in enumerate(nums):
+        if i &gt; farthest:
+            return False
+        farthest = max(farthest, i + jump)
+        if farthest &gt;= len(nums) - 1:
+            return True
+    return True</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">

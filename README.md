@@ -17,6 +17,8 @@ Open `index.html` in a browser to read the website locally.
   non-autoregressive TTS, VITS, neural codecs.
 - Speech-to-speech: cascaded systems, shared state, streaming, barge-in,
   full-duplex constraints, direct speech models.
+- System design: service decomposition, launch gates, latency budgets,
+  privacy-safe telemetry, rollback, cost controls, and production incidents.
 - Evaluation and RAG: WER/CER/entity metrics, retrieval recall, grounded answer
   evaluation, LLM judges, human review, monitoring, and rollout gates.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
