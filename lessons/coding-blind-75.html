@@ -14,6 +14,7 @@
       <a href="#patterns">Patterns</a>
       <a href="#blind75">Blind 75</a>
       <a href="#mistakes">Mistakes</a>
+      <a href="#worked">Worked</a>
     </nav>
     <p class="eyebrow">Coding Track</p>
     <h1>Blind 75 Coding Interview Chapter</h1>
@@ -89,6 +90,161 @@
         <li>Misreporting complexity because slicing, sorting, heap operations, or recursion stack are ignored.</li>
         <li>Trying to memorize code instead of learning the invariant.</li>
       </ul>
+    </section>
+
+    <section id="worked" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Worked Python</p>
+        <h2>First Solutions To Memorize By Invariant</h2>
+        <p>
+          Read the prompt, write your own solution, then open the hidden answer.
+          The point is not to memorize syntax. The point is to internalize the
+          invariant that makes the implementation short.
+        </p>
+      </div>
+
+      <article class="prompt">
+        <h3>Worked 1: Two Sum</h3>
+        <p>
+          Return the two indices whose values add to the target. Exactly one
+          answer exists, and an index may not be reused.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: before processing <code>nums[i]</code>, the map contains
+            values from indices less than <code>i</code>. If the complement is
+            already present, the pair is valid and cannot reuse the same index.
+          </p>
+          <pre><code class="language-python">def two_sum(nums, target):
+    seen = {}
+    for i, x in enumerate(nums):
+        need = target - x
+        if need in seen:
+            return [seen[need], i]
+        seen[x] = i
+    raise ValueError("no solution")</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 2: Product Of Array Except Self</h3>
+        <p>
+          Return an array where each position contains the product of every
+          other number. Do not use division.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: after the forward pass, <code>out[i]</code> is the
+            product of values left of <code>i</code>. During the reverse pass,
+            <code>right</code> is the product of values right of <code>i</code>.
+          </p>
+          <pre><code class="language-python">def product_except_self(nums):
+    out = [1] * len(nums)
+    left = 1
+    for i, x in enumerate(nums):
+        out[i] = left
+        left *= x
+
+    right = 1
+    for i in range(len(nums) - 1, -1, -1):
+        out[i] *= right
+        right *= nums[i]
+    return out</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 3: Longest Substring Without Repeating Characters</h3>
+        <p>
+          Return the length of the longest substring with no repeated
+          characters.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: the active window from <code>left</code> to
+            <code>right</code> contains no duplicates after updating
+            <code>left</code>. Never move <code>left</code> backward.
+          </p>
+          <pre><code class="language-python">def length_of_longest_substring(s):
+    last = {}
+    left = 0
+    best = 0
+    for right, ch in enumerate(s):
+        if ch in last and last[ch] >= left:
+            left = last[ch] + 1
+        last[ch] = right
+        best = max(best, right - left + 1)
+    return best</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 4: Number Of Islands</h3>
+        <p>
+          Count connected components of land in a grid of "1" and "0" cells.
+          Land connects horizontally and vertically.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: when DFS starts from an unvisited land cell, it marks
+            exactly one island. Mark before pushing neighbors so the same cell
+            cannot be added repeatedly.
+          </p>
+          <pre><code class="language-python">def num_islands(grid):
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    islands = 0
+
+    def flood(r, c):
+        stack = [(r, c)]
+        grid[r][c] = "0"
+        while stack:
+            x, y = stack.pop()
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nx, ny = x + dx, y + dy
+                if 0 &lt;= nx &lt; rows and 0 &lt;= ny &lt; cols and grid[nx][ny] == "1":
+                    grid[nx][ny] = "0"
+                    stack.append((nx, ny))
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1":
+                islands += 1
+                flood(r, c)
+    return islands</code></pre>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Worked 5: Coin Change</h3>
+        <p>
+          Given coin denominations and an amount, return the fewest coins
+          needed to make that amount, or -1 if impossible.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: invariant and Python solution</summary>
+          <p>
+            Invariant: after computing <code>dp[a]</code>, it stores the fewest
+            coins needed for amount <code>a</code> using any denomination.
+            Greedy fails for many coin systems, so use dynamic programming.
+          </p>
+          <pre><code class="language-python">def coin_change(coins, amount):
+    inf = amount + 1
+    dp = [inf] * (amount + 1)
+    dp[0] = 0
+    for a in range(1, amount + 1):
+        for coin in coins:
+            if coin &lt;= a:
+                dp[a] = min(dp[a], dp[a - coin] + 1)
+    return -1 if dp[amount] == inf else dp[amount]</code></pre>
+        </details>
+      </article>
     </section>
 
     <section class="band">

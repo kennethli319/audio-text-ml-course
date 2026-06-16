@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Production Speech MLOps And Incident Lab</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="lesson-hero">
+    <nav>
+      <a href="../index.html">Course Home</a>
+      <a href="#system">System</a>
+      <a href="#gates">CI/CD</a>
+      <a href="#observability">Observability</a>
+      <a href="#incidents">Incidents</a>
+      <a href="#cost">Cost</a>
+    </nav>
+    <p class="eyebrow">Production Lab</p>
+    <h1>Speech MLOps, Serving, And Incident Response</h1>
+    <p class="lede">
+      Senior audio ML work is measured after launch. This lesson trains the
+      production habits behind reliable ASR, TTS, embeddings, speech-to-speech,
+      and audio classification systems.
+    </p>
+  </header>
+
+  <main>
+    <section id="system" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Architecture</p>
+        <h2>Reference Serving System</h2>
+        <p>
+          Use this as the baseline design in interviews and course projects.
+          Replace parts only when a constraint forces a different choice.
+        </p>
+      </div>
+      <ol class="steps">
+        <li><strong>Ingress:</strong> authenticate requests, assign trace IDs, validate format, and reject unsafe payloads early.</li>
+        <li><strong>Preprocess:</strong> resample, normalize loudness, run VAD, chunk streams, and preserve timing metadata.</li>
+        <li><strong>Route:</strong> select CPU, GPU, local, batch, or streaming path by model type, latency SLO, and tenant policy.</li>
+        <li><strong>Infer:</strong> use bounded queues, dynamic batching, KV-cache or decoder state reuse, and timeout-aware cancellation.</li>
+        <li><strong>Postprocess:</strong> restore timestamps, punctuation, speaker labels, redaction, confidence, and downstream event schema.</li>
+        <li><strong>Observe:</strong> emit privacy-safe metrics, traces, eval samples, cost tags, model version, and data-slice labels.</li>
+      </ol>
+      <details class="qa">
+        <summary>Question: Why keep preprocessing versioned with the model?</summary>
+        <p>
+          Feature code is part of the model contract. A sample-rate change,
+          mel-filter configuration change, text normalization rule, tokenizer
+          update, or VAD threshold can change accuracy and latency even when
+          weights are identical. A production model artifact should include
+          weights, code commit, feature config, tokenizer, dependency lockfile,
+          eval report, training data snapshot, and owner.
+        </p>
+      </details>
+    </section>
+
+    <section id="gates" class="band">
+      <div class="section-head">
+        <p class="eyebrow">CI/CD</p>
+        <h2>Promotion Gates For Audio Models</h2>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <h3>Code Gates</h3>
+          <p>Unit tests, type checks, HTML/site checks, lint, reproducible environment build, and no private audio or transcript artifacts in Git.</p>
+          <details class="qa">
+            <summary>Hidden answer: Minimum senior checklist</summary>
+            <p>
+              Include tests for feature shapes, normalization, decoding edge
+              cases, model wrapper schema, retry behavior, timeout behavior,
+              and one-batch overfit sanity. For this course repo, keep using
+              HTML parsing, ASCII checks, <code>git diff --check</code>, and
+              local server smoke tests.
+            </p>
+          </details>
+        </article>
+        <article class="card">
+          <h3>Model Gates</h3>
+          <p>Baseline comparison, slice metrics, regression budget, latency budget, memory budget, privacy review, and rollback plan.</p>
+          <details class="qa">
+            <summary>Hidden answer: What should block promotion?</summary>
+            <p>
+              Block promotion if WER or entity error regresses on critical
+              slices, TTS quality drops below the acceptance threshold, p95 or
+              p99 latency breaks SLO, memory exceeds capacity, transcripts are
+              logged unsafely, rollback is untested, or the eval set no longer
+              represents production traffic.
+            </p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="observability" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Monitoring</p>
+        <h2>Metrics That Catch Real Failures</h2>
+      </div>
+      <ul class="checklist">
+        <li>Latency: queue time, preprocessing time, first partial token, final transcript, first audio byte, and end-to-end turn time.</li>
+        <li>Quality: WER, CER, entity error rate, timestamp error, diarization error rate, MOS proxy, and task completion.</li>
+        <li>Traffic: request rate, concurrent streams, chunk sizes, audio duration, retry rate, cancellation rate, and tenant mix.</li>
+        <li>Infrastructure: GPU memory, GPU utilization, CPU load, batch size, cache hit rate, cold starts, OOMs, and throttling.</li>
+        <li>Data health: sample rate distribution, clipping, silence ratio, SNR proxy, language mix, domain-term frequency, and missing metadata.</li>
+      </ul>
+      <details class="qa">
+        <summary>Question: How can drift be monitored without storing private audio?</summary>
+        <p>
+          Prefer aggregate and derived signals: duration buckets, language
+          probabilities, acoustic quality summaries, confidence distributions,
+          error reports from opted-in samples, redacted transcripts, synthetic
+          canaries, and human review queues with explicit retention controls.
+          Store enough to diagnose trends, not raw private content by default.
+        </p>
+      </details>
+    </section>
+
+    <section id="incidents" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Incident Drills</p>
+        <h2>Practice First-Hour Debugging</h2>
+      </div>
+
+      <article class="prompt">
+        <h3>Incident 1: Streaming ASR Partials Became Unstable</h3>
+        <p>
+          Users see words appear, disappear, and reappear for several seconds.
+          Final WER is unchanged, but the product feels broken.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: Debug path</summary>
+          <p>
+            Check endpointing, chunk size, partial stabilization rules,
+            decoder beam settings, language-model rescoring, VAD thresholds,
+            network jitter, and whether the UI is rendering interim hypotheses
+            as committed text. Add a metric for partial churn and compare old
+            and new traces on the same audio fixtures.
+          </p>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Incident 2: TTS First Audio Byte Doubled After A Voice Update</h3>
+        <p>
+          The new voice has better MOS in offline tests, but conversational
+          latency crossed the product SLO.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: Mitigation options</summary>
+          <p>
+            Measure text normalization, acoustic model time, vocoder time,
+            streaming chunk release, cold starts, and device placement.
+            Mitigate with rollback, canary pause, warm pools, smaller voice,
+            lower vocoder quality for long responses, sentence-level streaming,
+            cache common prompts, or split traffic by latency-sensitive use
+            case. Do not hide latency regressions behind offline MOS.
+          </p>
+        </details>
+      </article>
+
+      <article class="prompt">
+        <h3>Incident 3: GPU Cost Rose 40 Percent With No Traffic Increase</h3>
+        <p>
+          Requests per minute are flat, but the audio model serving bill
+          jumped after a deployment.
+        </p>
+        <details class="qa">
+          <summary>Hidden answer: Cost diagnosis</summary>
+          <p>
+            Compare model version, average audio duration, batch fill rate,
+            padding waste, beam size, max tokens, quantization, cache reuse,
+            autoscaler target, replica count, retries, and failed requests.
+            Check whether a fallback path silently moved from CPU to GPU or
+            whether canary plus shadow traffic doubled inference.
+          </p>
+        </details>
+      </article>
+    </section>
+
+    <section id="cost" class="band">
+      <div class="section-head">
+        <p class="eyebrow">Tradeoffs</p>
+        <h2>Cost, Latency, And Quality Knobs</h2>
+      </div>
+      <div class="grid three">
+        <article class="card">
+          <h3>Batching</h3>
+          <p>Raises throughput but can add queue delay. Good for offline ASR and embeddings, risky for conversational first-token latency.</p>
+        </article>
+        <article class="card">
+          <h3>Quantization</h3>
+          <p>Reduces memory and can improve latency, but must be checked by slice because rare words, accents, and prosody can regress.</p>
+        </article>
+        <article class="card">
+          <h3>Cascading</h3>
+          <p>Route easy requests to small models and hard requests to large models. Monitor routing mistakes and user-visible consistency.</p>
+        </article>
+      </div>
+      <details class="qa">
+        <summary>Question: How should a senior engineer present a tradeoff?</summary>
+        <p>
+          Name the product goal, the constraint, the options, the expected
+          impact, the measurement plan, and the rollback path. Example:
+          "Quantize the ASR encoder to reduce GPU memory by 35 percent, canary
+          to 5 percent of English call-center traffic, block if entity error or
+          p95 latency regresses, and keep the old model loaded for immediate
+          rollback."
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="../index.html">Back to course home</a></p>
+  </footer>
+</body>
+</html>
