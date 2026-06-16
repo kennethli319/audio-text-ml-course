@@ -35,6 +35,10 @@ Open `index.html` in a browser to read the website locally.
 - Speech AI debugging casebook: hypothesis-driven incident response,
   slice-aware rollback decisions, spoken RAG failures, safety regressions, and
   privacy-safe incident packets.
+- Model serving on-call: queue saturation, tail-latency triage, cost per
+  successful voice turn, graceful degradation, rollback selection, and
+  privacy-safe debugging for ASR, TTS, LLM, retrieval, and speech-to-speech
+  serving.
 - Efficiency: quantization, distillation, adapters, LoRA, FlashAttention,
   KV-cache management, batching, llama.cpp/MLX/vLLM-style serving.
 - Coding interviews: Blind 75 pattern practice, hidden-answer checkpoints,
