@@ -1,5 +1,7 @@
 # Speech ML/AI Domain Study Guide
 
+Hosted at https://kennethli319.github.io/audio-text-ml-course/
+
 A self-paced study guide for learning machine learning from the
 fundamentals through audio/text multimodality, ASR, TTS, speech-to-speech
 systems, efficient transformers, and practical inference hosting across the
